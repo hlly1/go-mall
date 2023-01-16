@@ -1,13 +1,25 @@
 package router
 
-import "github.com/gin-gonic/gin"
+import (
+	"go-mall/controllers/user"
 
-func UserRouter(r *gin.Engine){
+	"github.com/gin-gonic/gin"
+)
+
+func UserRouter(r *gin.Engine) {
 	userRoutes := r.Group("/user")
 	{
-		userRoutes.GET("/getInfo", func(ctx *gin.Context) {
-			ctx.JSON(200, "I am Bob")
-		})
+		// guess it will render a page to client...but frontend is not integrated this time
+		
+		// userRoutes.GET("/", func(ctx *gin.Context) {
+		// 	ctx.HTML(200, "whatever", nil)
+		// })
+
+		userRoutes.GET("/create", user.UserController{}.Create)
+
+		userRoutes.GET("/get", user.UserController{}.Index)
+
+		userRoutes.GET("/update", user.UserController{}.Edit)
 
 	}
 }
