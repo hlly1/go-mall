@@ -19,9 +19,10 @@ func IsLogin(ctx *gin.Context) {
 	//Assume get session or token from redis or somewhere...
 	// ctx.Set("username", "Alice")
 
-	_, ok := ctx.Get("username")
+	// _, ok := ctx.Get("username")
+	username, _ := ctx.Cookie("username")
 
-	if !ok {
+	if username == "" {
 		ctx.Abort()
 		ctx.JSON(200, "user not logged in")
 	}

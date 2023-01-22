@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go-mall/router"
+	"go-user/router"
 
 	"github.com/gin-gonic/gin"
 )
