@@ -30,6 +30,9 @@ func (con UserController) Login(ctx *gin.Context){
 	//3600s for expire time, 
 	//path "/" is default for it is valid globally
 	//domain means domain scope, e.g. example.com, should be set when it is deployed
+	//(tip)
+	// assume a.example.com, b.example.com, example.com shares cookie for all domains
+	// domain=a.example.com, cookie will work at this domain only
 	//secure, true for https only, false for http and https
 	//httpOnly, true for defense xss attack(i.e. js, applet cannot get cookie)
 	ctx.SetCookie("username", "alice", 3600,"/","localhost", false, true)
