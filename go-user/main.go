@@ -23,7 +23,7 @@ func main() {
 
 	//session middleware
 	store, _ := redis.NewStore(10, "tcp", "127.0.0.1:6379", "", []byte("redis-session-secret-key"))
-	r.Use(sessions.Sessions("newSession", store))
+	r.Use(sessions.Sessions("iSession", store))
 
 	router.UserRouter(r)
 	router.MchntRouter(r)
