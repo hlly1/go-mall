@@ -1,3 +1,4 @@
-go install github.com/gin-gonic/gin
+go get github.com/gin-gonic/gin@latest
 go install github.com/pilu/fresh@latest
+go get github.com/gin-contrib/sessions
 

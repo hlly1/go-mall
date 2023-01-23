@@ -1,6 +1,9 @@
 package middlewares
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-gonic/gin"
+)
 
 // The 1st letter of func name should Capital otherwise it would not be imported as public
 func Middle_ware_test(ctx *gin.Context) {
@@ -20,9 +23,10 @@ func IsLogin(ctx *gin.Context) {
 	// ctx.Set("username", "Alice")
 
 	// _, ok := ctx.Get("username")
-	username, _ := ctx.Cookie("username")
-
-	if username == "" {
+	session := sessions.Default(ctx)
+	sessionName := session.Get("username")
+	
+	if sessionName == nil {
 		ctx.Abort()
 		ctx.JSON(200, "user not logged in")
 	}

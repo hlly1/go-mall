@@ -3,6 +3,8 @@ package main
 import (
 	"go-user/router"
 
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/redis"
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,6 +20,10 @@ func main() {
 
 	//This will execute the middle ware globaly
 	// r.Use(middle_ware_test)
+
+	//session middleware
+	store, _ := redis.NewStore(10, "tcp", "127.0.0.1:6379", "", []byte("redis-session-secret-key"))
+	r.Use(sessions.Sessions("newSession", store))
 
 	router.UserRouter(r)
 	router.MchntRouter(r)
