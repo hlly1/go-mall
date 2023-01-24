@@ -8,7 +8,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-
 func main() {
 	r := gin.Default()
 
@@ -27,5 +26,20 @@ func main() {
 
 	router.UserRouter(r)
 	router.MchntRouter(r)
+
+	r.GET("/testRes", func(ctx *gin.Context) {
+		// data1 := Tuple{}
+		// data1.Key = "key1"
+		// data1.Value = map[string]any{"content": 1111, "other": "woho!"}
+		// data2 := Tuple{}
+		// data2.Key = "key2"
+		// data2.Value = map[string]any{"content": 2222, "other": "woho!"}
+		// ctx.JSON(200, multipleArgs(gin.H{"code": 0000, "msg": "响应成功"}, data1, data2))
+
+		test := gin.H{"code": 0000, "msg": "响应成功"}
+		test["data1"] = map[string]any{"content": 1111, "other": "woho!"}
+		ctx.JSON(200, test)
+	})
+
 	r.Run(":8888")
 }

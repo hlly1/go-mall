@@ -17,7 +17,7 @@ func UserRouter(r *gin.Engine) {
 
 	}
 
-	// userRoutes := r.Group("/user")
+	// userRoutes := r.Group("/user"	)
 	// The 1st way to execute middleware for this group globally
 	userRoutes := r.Group("/user", middlewares.IsLogin)
 	{

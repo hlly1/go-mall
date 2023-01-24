@@ -49,7 +49,6 @@ func (con UserController) Login(ctx *gin.Context) {
 	session.Options(sessions.Options{MaxAge: 3600 * 72}) 
 	session.Set("username", "alice")
 	session.Save()
-
 }
 
 func (con UserController) Logout(ctx *gin.Context) {

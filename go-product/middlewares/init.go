@@ -1,4 +1,4 @@
-package middlewares
+package sessionCheck
 
 import (
 	"github.com/gin-contrib/sessions"

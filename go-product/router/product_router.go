@@ -1,23 +1,22 @@
 package router
 
 import (
-	"go-product/controllers/product"
-	"go-product/middlewares"
+	productcon "go-product/controllers/product_con"
 
 	"github.com/gin-gonic/gin"
 )
 
 func ProductRouter(r *gin.Engine) {
 
-	productRouter := r.Group("/product", middlewares.IsLogin)
+	productRouter := r.Group("/product")
 	{
-		productRouter.GET("/create", product.ProductController{}.Add)
+		productRouter.POST("/add", productcon.ProductController{}.Add)
 
-		productRouter.GET("/get", product.ProductController{}.Index)
+		productRouter.GET("/get", productcon.ProductController{}.Index)
 
-		productRouter.GET("/update", product.ProductController{}.Update)
+		productRouter.GET("/update", productcon.ProductController{}.Update)
 
-		productRouter.GET("/delete", product.ProductController{}.Delete)
+		productRouter.GET("/delete", productcon.ProductController{}.Delete)
 
 	}
 }
