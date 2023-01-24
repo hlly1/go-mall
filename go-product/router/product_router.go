@@ -14,9 +14,9 @@ func ProductRouter(r *gin.Engine) {
 
 		productRouter.GET("/get", productcon.ProductController{}.Index)
 
-		productRouter.GET("/update", productcon.ProductController{}.Update)
+		productRouter.POST("/update", productcon.ProductController{}.Update)
 
-		productRouter.GET("/delete", productcon.ProductController{}.Delete)
+		productRouter.DELETE("/delete", productcon.ProductController{}.Delete)
 
 	}
 }

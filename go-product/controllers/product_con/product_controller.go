@@ -18,8 +18,16 @@ type ProductController struct {
 }
 
 func (con ProductController) Index(ctx *gin.Context) {
-	product := basecon.Tuple{Key: "data", Value: map[string]any{"name": "apple", "price": 6, "unit": "/kg", "stock": 10, "stock_unit": "kg"}}
-	basecon.ReturnSucceedWithArgus(ctx, product)
+	rows, err := dao.DB.Model(&entities.Product{}).Raw("select * from product where id = ?", ctx.Query("id")).Rows()
+	if err != nil {
+		panic(err)
+	}
+	defer rows.Close()
+	var product entities.Product
+	for rows.Next() {
+		dao.DB.ScanRows(rows, &product)
+	}
+	basecon.ReturnSucceedWithArgus(ctx, basecon.Tuple{Key: "product", Value: product})
 }
 
 func (con ProductController) Add(ctx *gin.Context) {
@@ -31,9 +39,15 @@ func (con ProductController) Add(ctx *gin.Context) {
 }
 
 func (con ProductController) Update(ctx *gin.Context) {
+	product := entities.Product{}
+	ctx.ShouldBindJSON(&product)
+	dao.DB.Updates(product)
 	basecon.ReturnSucceed(ctx)
 }
 
 func (con ProductController) Delete(ctx *gin.Context) {
+	product := entities.Product{}
+	ctx.ShouldBindJSON(&product)
+	dao.DB.Delete(product)
 	basecon.ReturnSucceed(ctx)
 }
