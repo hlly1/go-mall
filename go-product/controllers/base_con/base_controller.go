@@ -31,7 +31,7 @@ func ReturnFailedWithArgus(ctx *gin.Context, args ...any) {
 	ctx.JSON(http.StatusOK, clusterPairs(GetFailed(), args...))
 }
 
-func ReturnCustom(ctx *gin.Context, code *string, msg *string) {
+func ReturnCustom(ctx *gin.Context, code string, msg string) {
 	ctx.JSON(http.StatusOK, gin.H{"code": code, "msg": msg})
 }
 
@@ -56,4 +56,8 @@ func clusterPairs(h gin.H, args ...any) gin.H {
 		h[reflect.ValueOf(v).Field(0).String()] = reflect.ValueOf(v).Field(1).Interface()
 	}
 	return h
+}
+
+func NewJson(key string, value any) Tuple {
+	return Tuple{Key: key, Value: value}
 }
