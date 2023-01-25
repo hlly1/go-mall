@@ -2,6 +2,7 @@ package productcon
 
 import (
 	"log"
+	"time"
 
 	"strings"
 
@@ -46,20 +47,22 @@ func (con ProductController) Add(ctx *gin.Context) {
 	ctx.ShouldBindJSON(&product)
 	prod_id := strings.Replace(uuid.NewString(), "-", "", -1)
 	product.ID = prod_id
-	dao.DB.Create(product)
+	product.CreatedAt = time.Now()
+	product.Status = "0"
+	dao.DB.Create(&product)
 	basecon.ReturnSucceedWithArgus(ctx, basecon.NewJson("id", prod_id))
 }
 
 func (con ProductController) Update(ctx *gin.Context) {
 	product := entities.Product{}
 	ctx.ShouldBindJSON(&product)
-	dao.DB.Updates(product)
+	dao.DB.Updates(&product)
 	basecon.ReturnSucceed(ctx)
 }
 
 func (con ProductController) Delete(ctx *gin.Context) {
 	product := entities.Product{}
 	ctx.ShouldBindJSON(&product)
-	dao.DB.Delete(product)
+	dao.DB.Delete(&product)
 	basecon.ReturnSucceed(ctx)
 }

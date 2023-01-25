@@ -1,2 +1,6 @@
-/*/tmp
-/*/tmp/*
+*/tmp
+*/tmp/*
+admin-dashboard/
+admin-dashboard/node_modules/*
+admin-dashboard/npm-debug.log
+admin-dashboard/yarn-error.log
