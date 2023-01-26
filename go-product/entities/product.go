@@ -14,7 +14,7 @@ type Product struct {
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
-// change the table name to stock since default one is stocks
+// change the table name to product since default one is products
 func (Product) TableName() string {
 	return "product"
 }
