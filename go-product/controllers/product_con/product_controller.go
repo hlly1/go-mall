@@ -66,3 +66,27 @@ func (con ProductController) Delete(ctx *gin.Context) {
 	dao.DB.Delete(&product)
 	basecon.ReturnSucceed(ctx)
 }
+
+// pagination search
+func (con ProductController) PagingQuery(ctx *gin.Context) {
+
+	log.Println("[Pagination Product]: Request Params - start: ", ctx.Query("start"),
+		"; end: ", ctx.Query("end"), "Category: ", ctx.Query("cat_id"))
+	rows, err := dao.DB.Model(&entities.Product{}).Raw("select * from product where cat_id = ? limited ?, ?",
+		ctx.Query("id"), ctx.Query("start"), ctx.Query("end")).Rows()
+	if err != nil {
+		panic(err)
+	}
+	log.Println("[Pagination Product]: debug: ", rows)
+	var products entities.Product
+	for rows.Next() {
+		dao.DB.ScanRows(rows, &products)
+	}
+	if !(len(products.ID) > 0) {
+		basecon.ReturnCustom(ctx, "0001", "Not Found")
+		ctx.Next()
+	} else {
+		log.Println("[Pagination Product]: Found Target - ", products)
+		basecon.ReturnSucceedWithArgus(ctx, basecon.NewJson("products", products))
+	}
+}
