@@ -22,7 +22,7 @@ func (con UserController) Index(ctx *gin.Context) {
 	username, _ := ctx.Cookie("username")
 	// username,_ := ctx.Get("username")
 	// name, _ := username.(string)
-	ctx.JSON(http.StatusOK, gin.H{"username":username, "sessionName":sessionName})
+	ctx.JSON(http.StatusOK, gin.H{"username": username, "sessionName": sessionName})
 }
 
 func (con UserController) Edit(ctx *gin.Context) {
@@ -46,7 +46,7 @@ func (con UserController) Login(ctx *gin.Context) {
 
 	//3600s for 1h, so 3600 * 72 is 3 days
 	session := sessions.Default(ctx)
-	session.Options(sessions.Options{MaxAge: 3600 * 72}) 
+	session.Options(sessions.Options{MaxAge: 3600 * 72})
 	session.Set("username", "alice")
 	session.Save()
 }
